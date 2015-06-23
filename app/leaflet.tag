@@ -29,8 +29,6 @@ require('leaflet');
     // eachLayer(m) / hasLayer(m) for diffing?
 
 
-    //--- restaurant-markers to map ----------
-
     var markers = [];
     this.on('update', function() {
       // TODO find a way to do react/riot style diffing (instead of readding a lot of markers)
