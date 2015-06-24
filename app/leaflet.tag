@@ -1,5 +1,6 @@
 require('leaflet');
 var statesData = require('./us-states-data');
+var actions = new (require('./actions.js'))();
 
 <leaflet>
     <div id="mapcanvas" class="fill-parent"></div>
@@ -87,11 +88,15 @@ var statesData = require('./us-states-data');
         this.map.fitBounds(e.target.getBounds());
     }.bind(this);
 
+    var sellToState = function(e) {
+      actions.trigger(actions.SELL_CCTV);
+    }
+
     function onEachFeature(feature, layer) {
         layer.on({
             mouseover: highlightFeature,
             mouseout: resetHighlight,
-            click: zoomToFeature
+            click: sellToState
         });
     }
 
