@@ -10,14 +10,14 @@ function SocialCapitalStore() {
   // Make instances observable
   riot.observable(this);
 
-  var socialCapital = 0.0;
+  var resentment = 0.0;
   actions.on(actions.TICK, function(deltaSeconds) {
-      var oldSC = socialCapital;
+      var oldSC = resentment;
 
-      socialCapital += 0.1 * deltaSeconds;
-      socialCapital = Math.min(Math.max(socialCapital, 0.0), 1.0)
+      resentment += deltaSeconds * this.resentmentPerSecond();
+      resentment = Math.min(Math.max(resentment, 0.0), 1.0);
 
-      if(oldSC != socialCapital)
+      if(oldSC != resentment)
           this.trigger("change");
   }.bind(this))
 
@@ -32,8 +32,24 @@ function SocialCapitalStore() {
     this.off(CHANGE_EVENT, callback)
 }*/
 
-  var socialCapital = 0.0;
+  var resentment = 0.15;
   this.get = function() {
-      return socialCapital;
+      return resentment;
+  }
+  var BASE_LEVEL = 0.15
+  this.resentmentPerSecond = function() {
+    // strong regen if it barely goes over the base_level, the regen lessens
+    // at higher levels, close to the protest line (1.0)
+    //return - 0.05 - 0.25 * (1 - (resentment - BASE_LEVEL) / (1 - BASE_LEVEL))
+    //0.05 to 0.3
+
+    var delt
+
+    if(resentment < BASE_LEVEL)
+      return 0.01;
+    else
+      return -0.01;
+
+
   }
 }

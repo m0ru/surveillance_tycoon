@@ -7,8 +7,9 @@ SocialCapitalStore = require('./social-capital-store')
     -->
     <div class="scm__bg"></div>
     <div class="scm__bar"></div>
-    <div class="scm__label">social capital:
+    <div class="scm__label">Resentment:
         <span class="scm__label__value"> { capital }%</span>
+         ({ deltaPerSecond } per second)
     </div>
 
     <style scoped>
@@ -64,6 +65,7 @@ SocialCapitalStore = require('./social-capital-store')
         //  console.log(this.scm__bar.style
         this.capital = Math.floor(scs.get() * 100);
         this.root.querySelector('.scm__bar').style.width = this.capital + "%";
+        this.deltaPerSecond = Math.floor(scs.resentmentPerSecond() * 100);
     }.bind(this))
 
 </social-capital-meter>
