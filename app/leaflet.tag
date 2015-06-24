@@ -29,6 +29,22 @@ require('leaflet');
     // eachLayer(m) / hasLayer(m) for diffing?
 
 
+    /*
+    Discrete or continous map?
+
+    discrete:
+      * easier to click
+      * population density is discrete (e.g. per district)
+      * need to visualise camera-density somehow
+      * mouseover to ge stories of sample residents
+
+    continous:
+      * requires some sort of mechanic to spread out the placed items (e.g. bounding boxes / areas of effect)
+      * requires placing houses / interface elements that show stories of sample residents
+
+    */
+
+
     var markers = [];
     this.on('update', function() {
       // TODO find a way to do react/riot style diffing (instead of readding a lot of markers)

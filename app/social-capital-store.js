@@ -35,17 +35,29 @@ function SocialCapitalStore() {
       resentment = Math.min(Math.max(resentment, 0.0), 1.0);
   }
 
+  function chiSquaredK4(x) {
+    if (x <= 0)
+        return 0;
+    else
+        return 1 /  4 * x * Math.exp(-x / 2);
+        //return 1 / 2 * Math.exp(- x / 2);
+  }
 
-  var BASE_LEVEL = 0.15
+  var BASE_LEVEL = 0.15;
   this.resentmentPerSecond = function() {
     // strong regen if it barely goes over the base_level, the regen lessens
     // at higher levels, close to the protest line (1.0)
-    //return - 0.05 - 0.25 * (1 - (resentment - BASE_LEVEL) / (1 - BASE_LEVEL))
-    //0.05 to 0.3
 
-    if(resentment < BASE_LEVEL)
-      return 0.01;
-    else
-      return -0.01;
+    var delta = Math.abs(resentment - BASE_LEVEL);
+
+    var rate = chiSquaredK4(delta * 12) / 3;
+
+    if(delta < 0.002) {
+      return 0;
+    } else if (resentment < BASE_LEVEL) {
+      return rate;
+    } else { // resentment > BASE_LEVEL
+      return -rate;
+    }
   }
 }
