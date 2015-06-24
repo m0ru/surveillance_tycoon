@@ -28,7 +28,7 @@ function SocialCapitalStore() {
   //console.log(minDensity); //1.2
 
   actions.on(actions.SELL_CCTV, function(state) {
-    increaseResentment(0.2);
+    increaseResentment(0.1);
   }.bind(this))
 
   var resentment = 0.15;
