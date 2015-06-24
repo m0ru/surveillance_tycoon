@@ -17,7 +17,6 @@ var tick = setInterval(function() {
     var deltaSeconds = (newMs - oldMs) / 1000.0;
     oldMs = newMs;
 
-    //trigger action TODO
     actions.trigger(actions.TICK, deltaSeconds);
 }, 1000);
 
@@ -25,11 +24,11 @@ riot.mount('*');
 
 riot.update(); // TODO this should not be necessary, but the markers won't appear otherwise
 
+
+// <END-OF-GAME-CHECK> ----------------------------------------
 var scs = new SocialCapitalStore();
 var ps = new ProfitStore();
-
 scs.on('change', function(){
-  console.log('index.js ' + scs.get());
   if(scs.get() >= 0.98) {
     alert(
       "Your advances were so overt and aggravating that the " +
@@ -40,3 +39,4 @@ scs.on('change', function(){
     global.window.document.location.reload();
   }
 });
+// </END-OF-GAME-CHECK> ----------------------------------------

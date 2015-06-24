@@ -8,9 +8,7 @@ ProfitStore = require('./profit-store')
     <br><br><br>
     <button name="sell-cctv" onclick={ sell }>Sell CCTV</button>
     <p>Profit so far: { profit }€</p>
-    <!--
     <leaflet class="screen-sized"></leaflet>
-    -->
 
     this.sell = function() {
       actions.trigger(actions.SELL_CCTV);
