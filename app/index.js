@@ -51,9 +51,9 @@ stateStore.on('change', function(){
     console.log("Checking for victory - max: " +
         stateStore.maxCctvLevel());
     if (stateStore.minCctvLevel() >= 1) { //TODO should be higher
-        alert("You've covered the US with your surveillance systems" +
-            " and made fine profit while doing so: \n\n" +
-            utils.numberWithCommas(ps.get()) + "$");
+        alert("You've covered the US with your surveillance systems! (" +
+            "And made fine profit while doing so: " +
+            utils.numberWithCommas(ps.get()) + "$)");
     }
 });
 // </END-OF-GAME-CHECK> ----------------------------------------
