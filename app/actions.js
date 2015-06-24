@@ -17,7 +17,7 @@ module.exports = function() {
 
 
   this.TICK = "game-cycle-tick";
-  this.BOUGHT_CCTV = "bought-cctv";
+  this.SELL_CCTV = "sell-cctv";
   //this.ITEM-PLACED = "item-placed";
 
   //TODO Use a proper dispatcher (e.g. fb-flux is only 10kB)
