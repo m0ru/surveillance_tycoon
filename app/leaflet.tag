@@ -1,4 +1,6 @@
 require('leaflet');
+require('./state-info-box.tag');
+var utils = require('./utils');
 var statesData = require('./us-states-data');
 var actions = new (require('./actions.js'))();
 
@@ -6,6 +8,9 @@ var actions = new (require('./actions.js'))();
     <div id="mapcanvas" class="fill-parent"></div>
 
     <style scoped>
+        .info {
+            width: 20em;
+        }
         .info {
             padding: 6px 8px;
             font: 14px/16px Arial, Helvetica, sans-serif;
@@ -17,6 +22,9 @@ var actions = new (require('./actions.js'))();
         .info h4 {
             margin: 0 0 5px;
             color: #777;
+        }
+        .info .portrait {
+            width: 100px;
         }
 
         .legend {
@@ -139,11 +147,68 @@ var actions = new (require('./actions.js'))();
             return this._div;
         };
 
+
+        var personas = [
+            {
+                "name" : "Jannet Kennsington",
+                "text" : {
+                    "baseSurveillance" : "As a feminist and civil \
+                            rights activist Jannet likes to warn \
+                            people of the potential problems of \
+                            surveillance - especially for \
+                            marginalized groups.",
+                    "totalSurveillance" : "As a feminist and civil \
+                            rights activist Jannet is a thorn in the side \
+                            of the ruling parties. Due to the intense \
+                            carpet-CCTV she feels severly inhibited in \
+                            her ability to move freely. The NSA has her \
+                            on their list and uses the network to track her \
+                            movements, waiting for anything they can use as \
+                            evidence to construct a lawsuit under whatever \
+                            obscure or missused law."
+                },
+                image: "bell_hooks.png"
+            },
+            {
+                name: "Marianne Witkins",
+                text: {
+                    baseSurveillance: "Due to strong ghettoization in her \
+                        district and skyrocketing crime-rates, Marianne \
+                        would like the town hall to respond with some \
+                        measures. Maybe CCTV would help.", // would like more surveillance to feel safe
+                    totalSurveillance: "Despite carpet-CCCT the \
+                        crime-rates have stayed high as ever. On top of that, \
+                        she suspects that her ex-husband, a police-officer is \
+                        using the CCTV-system to actively stalk her. However, \
+                        she can't get at evidence to base a court-suite on. " // got stalked by officer crime as high as ever
+                },
+                image: "theresa_may.png"
+
+            }
+        ]
+
+        var randomPersona = function() {
+            return personas[Math.floor(Math.random() * personas.length)];
+        }
+        var personalStoryHTML = function(){
+            var p = randomPersona();
+
+            // TODO adapt by number of cctv cams in that country.
+            // TODO have second, pro cctv persona
+            return '\
+                <p>In this state lives:</p> \
+                <h4>' + p.name + '</h4> \
+                <p>' + p.text.baseSurveillance + '</p> \
+                <div><img class="portrait" src="./app/' + p.image + '"></img></div> '
+        }
+
         // method that we will use to update the control based on feature properties passed
         info.update = function (props) {
-            this._div.innerHTML = '<h4>US Population Density</h4>' +  (props ?
-                '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup>'
+            this._div.innerHTML = '<state-info-box></state-info-box><h4>US Population Density</h4>' +  (props ?
+                '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup><br/>' + personalStoryHTML()
                 : 'Hover over a state');
+
+            riot.mount('state-info-box');//TODO doesn't mount :|
         };
 
 
