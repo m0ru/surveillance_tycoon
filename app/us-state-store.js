@@ -27,8 +27,7 @@ function UsStateStore() {
       var p = statesGeoJSON.features[i].properties;
       p.persona = personas.randomPersona();
       p.cctvCount = 0;
-      console.log(p.name);
       states[p.name] = p;
   }
 
-  this.get = function() {      return statesGeoJSON;  }  actions.on(actions.SELL_CCTV, function(state) {      console.log(state);      console.log(states);      states[state].cctvCount += 1;      // get state as arg      // increase the cctv count there      this.trigger("change");  }.bind(this));}
+  this.get = function() {      return statesGeoJSON;  }  actions.on(actions.SELL_CCTV, function(state) {      states[state].cctvCount += 1;      // get state as arg      // increase the cctv count there      this.trigger("change");  }.bind(this));}

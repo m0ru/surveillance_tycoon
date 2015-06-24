@@ -74,6 +74,7 @@ UsStateStore = require('./us-state-store');
 
     var info;
 
+    var displayedState;
     function highlightFeature(e) {
         var layer = e.target;
 
@@ -88,13 +89,15 @@ UsStateStore = require('./us-state-store');
             layer.bringToFront();
         }
 
-        info.update(layer.feature.properties);
+        displayedState = layer.feature.properties;
+        info.update(displayedState);
     }
 
     var geojson;
     function resetHighlight(e) {
         geojson.resetStyle(e.target);
-        info.update();
+        activeLayer = undefined;
+        info.update(displayedState);
     }
 
     var zoomToFeature = function (e) {
@@ -116,6 +119,9 @@ UsStateStore = require('./us-state-store');
     }
 
 
+    usStateStore.on("change", function(){
+        info.update(displayedState);
+    });
 
     this.on('mount', function() {
 

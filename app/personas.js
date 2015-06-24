@@ -35,7 +35,7 @@ var personas = [
                 she can't get at evidence to base a court-suite on. " // got stalked by officer crime as high as ever
         },
         image: "theresa_may.png",
-        criticalCount: 6
+        criticalCount: 5
 
     }
 ]
