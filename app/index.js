@@ -5,7 +5,6 @@ var actions = new (require('./actions.js'))();
 SocialCapitalStore = require('./social-capital-store');
 ProfitStore = require('./profit-store');
 
-
 global.window.riot = riot; //TODO deletme; for testing
 //require('../node_modules/leaflet/dist/leaflet.css');
 //require('../node_modules/riot/riot+compiler.js');
@@ -18,7 +17,7 @@ var tick = setInterval(function() {
     oldMs = newMs;
 
     actions.trigger(actions.TICK, deltaSeconds);
-}, 1000);
+}, 200);
 
 riot.mount('*');
 
