@@ -4,6 +4,7 @@ var utils = require('./utils');
 var statesData = require('./us-states-data');
 var actions = new (require('./actions.js'))();
 var personas = require('./personas');
+UsStateStore = require('./us-state-store');
 
 <leaflet>
     <div id="mapcanvas" class="fill-parent"></div>
@@ -43,6 +44,9 @@ var personas = require('./personas');
 
     //Webpack/Browserify fix:
     L.Icon.Default.imagePath = '../node_modules/leaflet/dist/images/';
+
+    var usStateStore = new UsStateStore();
+    statesData = usStateStore.get();
 
 
     function getColor(d) {
@@ -98,7 +102,9 @@ var personas = require('./personas');
     }.bind(this);
 
     var sellToState = function(e) {
-      actions.trigger(actions.SELL_CCTV);
+        var state = e.target.feature.properties.name;
+        //info.update();
+        actions.trigger(actions.SELL_CCTV, state);
     }
 
     function onEachFeature(feature, layer) {
@@ -149,22 +155,26 @@ var personas = require('./personas');
         };
 
 
-        var personalStoryHTML = function(){
-            var p = personas.randomPersona();
-
+        var personalStoryHTML = function(props){
+            var p = props.persona;
             // TODO adapt by number of cctv cams in that country.
-            // TODO have second, pro cctv persona
+            var level = (props.cctvCount < p.criticalCount)?
+                "baseSurveillance" : "totalSurveillance"
+
             return '\
                 <p>In this state lives:</p> \
                 <h4>' + p.name + '</h4> \
-                <p>' + p.text.baseSurveillance + '</p> \
+                <p>' + p.text[level] + '</p> \
                 <div><img class="portrait" src="./app/' + p.image + '"></img></div> '
+        }
+        var cctvHTML = function(props) {
+            return '<b>CCTV-Level: ' + props.cctvCount + '</b>';
         }
 
         // method that we will use to update the control based on feature properties passed
         info.update = function (props) {
             this._div.innerHTML = '<state-info-box></state-info-box><h4>US Population Density</h4>' +  (props ?
-                '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup><br/>' + personalStoryHTML()
+                '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup><br/>' + cctvHTML(props) + personalStoryHTML(props)
                 : 'Hover over a state');
 
             riot.mount('state-info-box');//TODO doesn't mount :|

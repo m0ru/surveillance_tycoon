@@ -22,7 +22,7 @@ function SocialCapitalStore() {
   }.bind(this))
 
 
-  actions.on(actions.SELL_CCTV, function() {
+  actions.on(actions.SELL_CCTV, function(state) {
     increaseResentment(0.2);
   }.bind(this))
 

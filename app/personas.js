@@ -10,14 +10,16 @@ var personas = [
             "totalSurveillance" : "As a feminist and civil \
                     rights activist Jannet is a thorn in the side \
                     of the ruling parties. Due to the intense \
-                    carpet-CCTV she feels severly inhibited in \
+                    carpet-CCTV (which is especiallly intense in her \
+                    neighbourhood) she feels severly inhibited in \
                     her ability to move freely. The NSA has her \
                     on their list and uses the network to track her \
                     movements, waiting for anything they can use as \
                     evidence to construct a lawsuit under whatever \
                     obscure or missused law."
         },
-        image: "bell_hooks.png"
+        image: "bell_hooks.png",
+        criticalCount: 3
     },
     {
         name: "Marianne Witkins",
@@ -32,7 +34,8 @@ var personas = [
                 using the CCTV-system to actively stalk her. However, \
                 she can't get at evidence to base a court-suite on. " // got stalked by officer crime as high as ever
         },
-        image: "theresa_may.png"
+        image: "theresa_may.png",
+        criticalCount: 6
 
     }
 ]
