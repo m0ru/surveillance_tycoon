@@ -5,6 +5,7 @@ var utils = require('./utils')
 
 SocialCapitalStore = require('./social-capital-store');
 ProfitStore = require('./profit-store');
+UsStateStore = require('./us-state-store');
 
 global.window.riot = riot; //TODO deletme; for testing
 //require('../node_modules/leaflet/dist/leaflet.css');
@@ -31,15 +32,29 @@ riot.update(); // TODO this should not be necessary, but the markers won't appea
 // <END-OF-GAME-CHECK> ----------------------------------------
 var scs = new SocialCapitalStore();
 var ps = new ProfitStore();
+var stateStore = new UsStateStore();
 scs.on('change', function(){
-  if(scs.get() >= 0.98) {
-    alert(
-      "Your advances were so overt and aggravating that the " +
-      "populace actually got off their bums to sanction you " +
-      "and your elected buddies via their votes. You probably " +
-      "should have minded their protests. Still, you have " +
-      "managed to extract a fine profit of: \n\n" + utils.numberWithCommas(ps.get()) + "$");
-    global.window.document.location.reload();
-  }
+    if(scs.get() >= 0.98) {
+        alert(
+            "Your advances were so overt and aggravating that the " +
+            "populace actually got off their bums to sanction you " +
+            "and your elected buddies via their votes. You probably " +
+            "should have minded their protests. Still, you have " +
+            "managed to extract a fine profit of: \n\n" + utils.numberWithCommas(ps.get()) + "$");
+        global.window.document.location.reload();
+    }
+});
+
+stateStore.on('change', function(){
+    console.log("Checking for victory - min: " +
+        stateStore.minCctvLevel());
+    console.log("Checking for victory - max: " +
+        stateStore.maxCctvLevel());
+    if (stateStore.minCctvLevel() >= 1) { //TODO should be higher
+        alert("You've covered the US with your surveillance systems" +
+            " and made fine profit while doing so: \n\n" +
+            utils.numberWithCommas(ps.get()) + "$");
+        global.window.document.location.reload();
+    }
 });
 // </END-OF-GAME-CHECK> ----------------------------------------

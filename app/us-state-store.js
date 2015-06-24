@@ -29,4 +29,25 @@ function UsStateStore() {
       states[p.name] = p;
   }
 
-  this.get = function() {      return statesGeoJSON;  }  this.getState = function(stateName) {      return states[stateName]  }  actions.on(actions.SELL_CCTV, function(state) {      states[state].cctvCount += 1;      // get state as arg      // increase the cctv count there      this.trigger("change");  }.bind(this));}
+  this.minCctvLevel = function() {
+      if(!statesGeoJSON.features[0]) return 0;
+      var min = statesGeoJSON.features[0].properties.cctvCount;
+      for(var i = 0; i < statesGeoJSON.features.length; i++){
+          var p = statesGeoJSON.features[i].properties;
+          if(p.cctvCount < min)
+            min = p.cctvCount;
+      }
+      return min;
+  }
+  this.maxCctvLevel = function() {
+      var max = 0
+      for(var i = 0; i < statesGeoJSON.features.length; i++){
+          var p = statesGeoJSON.features[i].properties;
+          if(p.cctvCount > max)
+            max = p.cctvCount;
+      }
+      return max;
+  }
+
+
+  this.get = function() {      return statesGeoJSON;  }  this.getState = function(stateName) {      console.log(states);      return states[stateName];  }  actions.on(actions.SELL_CCTV, function(state) {      states[state].cctvCount += 1;      // get state as arg      // increase the cctv count there      this.trigger("change");  }.bind(this));}
