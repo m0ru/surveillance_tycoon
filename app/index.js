@@ -54,7 +54,6 @@ stateStore.on('change', function(){
         alert("You've covered the US with your surveillance systems" +
             " and made fine profit while doing so: \n\n" +
             utils.numberWithCommas(ps.get()) + "$");
-        global.window.document.location.reload();
     }
 });
 // </END-OF-GAME-CHECK> ----------------------------------------
