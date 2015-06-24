@@ -12,4 +12,4 @@ function ProfitStore() {
   riot.observable(this);
 
   var profit = 0;
-  this.get = function() {      return profit;  }  actions.on(actions.SELL_CCTV, function() {    console.log("selling; profit store");    profit += 100000 * ( 1 + Math.random());    this.trigger("change")  }.bind(this));}
+  this.get = function() {      return profit;  }  actions.on(actions.SELL_CCTV, function() {    profit += Math.floor(100000 * ( 1 + Math.random()));    this.trigger("change")  }.bind(this));}
