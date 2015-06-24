@@ -1,6 +1,7 @@
 require('./app.tag');
 var riot = require('riot');
 var actions = new (require('./actions.js'))();
+var utils = require('./utils')
 
 SocialCapitalStore = require('./social-capital-store');
 ProfitStore = require('./profit-store');
@@ -37,7 +38,7 @@ scs.on('change', function(){
       "populace actually got off their bums to sanction you " +
       "and your elected buddies via their votes. You probably " +
       "should have minded their protests. Still, you have " +
-      "managed to extract a fine profit of: \n\n" + ps.get() + "$");
+      "managed to extract a fine profit of: \n\n" + utils.numberWithCommas(ps.get()) + "$");
     global.window.document.location.reload();
   }
 });
