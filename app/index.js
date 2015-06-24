@@ -31,11 +31,12 @@ var ps = new ProfitStore();
 scs.on('change', function(){
   console.log('index.js ' + scs.get());
   if(scs.get() >= 0.98) {
-    alert("\
-Your advances were so overt and aggravating the\
-populace actually got off their bums to sanction you\
-on election day. You probably should have minded their protests.\
-However you still managed to extract a fine profit of: " + ps.get() + "€");
+    alert(
+      "Your advances were so overt and aggravating that the " +
+      "populace actually got off their bums to sanction you " +
+      "and your elected buddies via their votes. You probably " +
+      "should have minded their protests. Still, you have " +
+      "managed to extract a fine profit of: \n\n" + ps.get() + "€");
     global.window.document.location.reload();
   }
 });
