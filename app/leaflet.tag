@@ -188,7 +188,7 @@ UsStateStore = require('./us-state-store');
                 <div><img class="portrait" src="./app/' + p.image + '"></img></div> '
         }
         var cctvHTML = function(props) {
-            return '<b>CCTV-Level: ' + props.cctvCount + '</b>';
+            return '<p>Surveillance-Level: <b>' + props.cctvCount + '</b></p>';
         }
 
         // method that we will use to update the control based on feature properties passed
