@@ -1,5 +1,6 @@
 var riot = require('riot');
 var actions = new (require('./actions.js'))();
+//UsStateStore = require('./us-state-store')
 
 module.exports = SocialCapitalStore
 function SocialCapitalStore() {
@@ -21,6 +22,10 @@ function SocialCapitalStore() {
           this.trigger("change");
   }.bind(this))
 
+
+  //var stateStore = new UsStateStore();
+  //console.log(maxDensity); //10k
+  //console.log(minDensity); //1.2
 
   actions.on(actions.SELL_CCTV, function(state) {
     increaseResentment(0.2);

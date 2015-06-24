@@ -60,27 +60,41 @@ UsStateStore = require('./us-state-store');
                d > 10   ? '#FED976' :
                           '#FFEDA0';
     }
+    function getColorByCctvLevel(lvl) {
+      return lvl < 1 ? '#c6dbef' :
+             lvl < 2 ? '#9ecae1' :
+             lvl < 3 ? '#6baed6' :
+             lvl < 4 ? '#3182bd' :
+                       '#08519c';
+/*
+        return lvl < 1 ? '#d9d9d9' :
+               lvl < 2 ? '#bdbdbd' :
+               lvl < 3 ? '#969696' :
+               lvl < 4 ? '#636363' :
+                         '#252525';
+                         */
+    }
 
     function styleState(feature) {
         return {
-            fillColor: getColor(feature.properties.density),
+            fillColor: getColorByCctvLevel(feature.properties.cctvCount),
             weight: 2,
             opacity: 1,
             color: 'white',
             dashArray: '3',
-            fillOpacity: 0.7
+            fillOpacity: 0.8
         };
     }
 
     var info;
 
     var displayedState;
+    var activeLayer;
     function highlightFeature(e) {
         var layer = e.target;
 
         layer.setStyle({
             weight: 5,
-            color: '#666',
             dashArray: '',
             fillOpacity: 0.7
         });
@@ -90,19 +104,17 @@ UsStateStore = require('./us-state-store');
         }
 
         displayedState = layer.feature.properties;
+        activeLayer = layer;
         info.update(displayedState);
     }
 
     var geojson;
     function resetHighlight(e) {
         geojson.resetStyle(e.target);
+        displayedState = undefined;
         activeLayer = undefined;
         info.update(displayedState);
     }
-
-    var zoomToFeature = function (e) {
-        this.map.fitBounds(e.target.getBounds());
-    }.bind(this);
 
     var sellToState = function(e) {
         var state = e.target.feature.properties.name;
@@ -120,6 +132,8 @@ UsStateStore = require('./us-state-store');
 
 
     usStateStore.on("change", function(){
+        activeLayer.setStyle({});
+        geojson.resetStyle(activeLayer);
         info.update(displayedState);
     });
 
@@ -179,7 +193,7 @@ UsStateStore = require('./us-state-store');
 
         // method that we will use to update the control based on feature properties passed
         info.update = function (props) {
-            this._div.innerHTML = '<state-info-box></state-info-box><h4>US Population Density</h4>' +  (props ?
+            this._div.innerHTML = (props ?
                 '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup><br/>' + cctvHTML(props) + personalStoryHTML(props)
                 : 'Hover over a state');
 

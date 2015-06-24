@@ -6,7 +6,7 @@ ProfitStore = require('./profit-store')
 <app>
     <social-capital-meter></social-capital-meter>
     <br><br><br>
-    <p>Profit so far: { profit }€</p>
+    <h1>Profit so far: { profit }$</h1>
     <leaflet class="screen-sized"></leaflet>
 
     var profitStore = new ProfitStore();

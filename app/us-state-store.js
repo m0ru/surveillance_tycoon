@@ -21,7 +21,6 @@ function UsStateStore() {
   // clarity. but w/e. it's a prototype.
   var states = {};
 
-
   //enrich data with personas and cctv count
   for(var i = 0; i < statesGeoJSON.features.length; i++){
       var p = statesGeoJSON.features[i].properties;
@@ -30,4 +29,4 @@ function UsStateStore() {
       states[p.name] = p;
   }
 
-  this.get = function() {      return statesGeoJSON;  }  actions.on(actions.SELL_CCTV, function(state) {      states[state].cctvCount += 1;      // get state as arg      // increase the cctv count there      this.trigger("change");  }.bind(this));}
+  this.get = function() {      return statesGeoJSON;  }  this.getState = function(stateName) {      return states[stateName]  }  actions.on(actions.SELL_CCTV, function(state) {      states[state].cctvCount += 1;      // get state as arg      // increase the cctv count there      this.trigger("change");  }.bind(this));}
