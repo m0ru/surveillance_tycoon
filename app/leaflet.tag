@@ -195,7 +195,7 @@ UsStateStore = require('./us-state-store');
         info.update = function (props) {
             this._div.innerHTML = (props ?
                 '<b>' + props.name + '</b><br />' + props.density + ' people / mi<sup>2</sup><br/>' + cctvHTML(props) + personalStoryHTML(props)
-                : 'Hover over a state');
+                : 'Hover over a state to view it. Click it to expand your empire.');
 
             riot.mount('state-info-box');//TODO doesn't mount :|
         };
@@ -204,6 +204,7 @@ UsStateStore = require('./us-state-store');
 
         info.addTo(this.map);
 
+        /*
         var legend = L.control({position: 'bottomright'});
 
         legend.onAdd = function (map) {
@@ -223,6 +224,7 @@ UsStateStore = require('./us-state-store');
         };
 
         legend.addTo(this.map);
+        */
     });
 
     /*
