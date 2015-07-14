@@ -2,6 +2,8 @@
 
 A fast game prototype for the course "gameful design" @ tuvienna
 
+**[DEMO](http://m0ru.github.io/gameful-design/games/surveillance_tycoon/index.html)**
+
 ## Setup
 
 In the app's root run:
